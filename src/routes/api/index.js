@@ -9,6 +9,10 @@ routes.get("/meuip", (req, res) => {
     baseUrl: req.baseUrl,
     originalUrl: req.originalUrl,
     hostname: req.hostname,
+    ip:
+      req.connection.remoteAddress ||
+      req.socket.remoteAddress ||
+      req.connection.socket.remoteAddress,
   });
 });
 
