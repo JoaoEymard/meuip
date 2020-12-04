@@ -5,7 +5,9 @@ const { httpVerify, generateToken } = require("../../helpers/jwt");
 
 // Exemplo de rota livre de autenticação
 routes.get("/meuip", (req, res) => {
-  return res.json(requestIp.getClientIp(req));
+  return res.json({
+    ip: requestIp.getClientIp(req),
+  });
 });
 
 module.exports = routes;
