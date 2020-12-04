@@ -1,4 +1,5 @@
 const routes = require("express").Router();
+var requestIp = require("request-ip");
 
 const { httpVerify, generateToken } = require("../../helpers/jwt");
 
@@ -9,10 +10,7 @@ routes.get("/meuip", (req, res) => {
     baseUrl: req.baseUrl,
     originalUrl: req.originalUrl,
     hostname: req.hostname,
-    ip:
-      req.connection.remoteAddress ||
-      req.socket.remoteAddress ||
-      req.connection.socket.remoteAddress,
+    ip: requestIp.getClientIp(req),
   });
 });
 
