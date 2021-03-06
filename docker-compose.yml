@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  front:
+    read_only: false
+    hostname: myip-nx
+    container_name: myip-nx
+    build:
+      context: ./
+      dockerfile: Dockerfile.nginx
+    env_file:
+      - ./.env.front
+    volumes:
+      - ${NGINX_FILE:-./meuip.joaoeymard.dev.template}:/etc/default/meuip.joaoeymard.dev.template
+      - ${NGINX_PATH-./}:/project/
+
+  webservice:
+    read_only: false
+    hostname: myip-ws
+    container_name: myip-ws
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env.ws
+    volumes:
+      - /usr/src/project/node_modules
+      - ./:/usr/src/project/
+    ports:
+      - '127.0.0.1:1010:3000'
+
+networks:
+  default:
+    external:
+      name: server
