@@ -2,8 +2,6 @@ const routes = require("express").Router();
 var requestIp = require("request-ip");
 var whois = require("whois-json");
 
-const { httpVerify, generateToken } = require("../../helpers/jwt");
-
 // Exemplo de rota livre de autenticação
 routes.get("/meuip", (req, res) => {
   return res.json({
